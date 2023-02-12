@@ -1,0 +1,43 @@
+{
+  "name": "bolfe-cli",
+  "version": "1.0.0",
+  "description": "bolfe cli",
+  "main": "dist/cli.js",
+  "type": "module",
+  "bin": {
+    "@guilhermebolfe11/bolfe-cli": "bin/create-project.js",
+    "bolfe": "bin/bolfe.js"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "dev": "rollup -c rollup.config.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilhermebolfe11/bolfe-cli.git"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "author": "Guilherme Bolfe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guilhermebolfe11/bolfe-cli/issues"
+  },
+  "homepage": "https://github.com/guilhermebolfe11/bolfe-cli#readme",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "11.0.0",
+    "@types/inquirer": "9.0.3",
+    "@types/node": "18.13.0",
+    "rollup": "3.15.0",
+    "rollup-plugin-auto-external": "2.0.0",
+    "tslib": "2.5.0",
+    "typescript": "4.9.5"
+  },
+  "dependencies": {
+    "arg": "5.0.2",
+    "execa": "6.1.0",
+    "inquirer": "9.1.4"
+  }
+}
