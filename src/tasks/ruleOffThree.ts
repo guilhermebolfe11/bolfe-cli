@@ -17,6 +17,6 @@ export function ruleOffThree(input: number[] | undefined): void {
 
   rule.r2 = (rule.n2 * rule.r1) / rule.n1;
 
-  console.log(chalk.blue(`${rule.n1}`) + chalk.green(` => `) + chalk.blue(`${rule.r1}`));
-  console.log(chalk.blue(`${rule.n2}`) + chalk.green(` => `) + chalk.blue(`${rule.r2}`));
+  console.log(chalk.blue(rule.n1) + chalk.green(" => ") + chalk.blue(rule.r1));
+  console.log(chalk.blue(rule.n2) + chalk.green(" => ") + chalk.blue(rule.r2));
 }

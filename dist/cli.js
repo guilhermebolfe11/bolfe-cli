@@ -91,11 +91,11 @@ function help() {
 }
 
 function info() {
-    console.log(chalk.blue.bold('Created by: ') + "Guilherme Bolfe");
+    console.log(chalk.blue.bold("Created by: ") + "Guilherme Bolfe");
 }
 
 function version() {
-    console.log(chalk.whiteBright.bold('Version: '));
+    console.log(chalk.whiteBright.bold("Version: 1.0.0"));
 }
 
 function ruleOffThree(input) {
@@ -110,15 +110,47 @@ function ruleOffThree(input) {
         r2: 0
     };
     rule.r2 = (rule.n2 * rule.r1) / rule.n1;
-    console.log(chalk.blue(`${rule.n1}`) + chalk.green(` => `) + chalk.blue(`${rule.r1}`));
-    console.log(chalk.blue(`${rule.n2}`) + chalk.green(` => `) + chalk.blue(`${rule.r2}`));
+    console.log(chalk.blue(rule.n1) + chalk.green(" => ") + chalk.blue(rule.r1));
+    console.log(chalk.blue(rule.n2) + chalk.green(" => ") + chalk.blue(rule.r2));
 }
 
 async function setupWindows() {
-    const result = await execa("winget", ["list"], { cwd: process.cwd() });
-    console.log(result.stdout);
-    return true;
+    var logs = new Array();
+    for (let i = 0; i < applications.length; i++) {
+        try {
+            let args = [
+                "install",
+                "-e",
+                "--id",
+                applications[i]
+            ];
+            const result = await execa("winget", args, { cwd: process.cwd() });
+            logs.push(chalk.green("Success") + chalk.gray(" => ") + chalk.gray(applications[i]));
+            logs.push(result.stdout);
+        }
+        catch (err) {
+            if (err.exitCode == 2316632107) {
+                logs.push(chalk.yellow("Warning") + chalk.white(" => ") + chalk.white(applications[i]));
+                logs.push(chalk.gray(err.message));
+            }
+            else {
+                logs.push(chalk.red("Error") + chalk.white(" => ") + chalk.white(applications[i]));
+                logs.push(chalk.gray(err.message));
+            }
+        }
+    }
+    logs.forEach(log => console.log(log));
 }
+const applications = [
+    "Microsoft.VisualStudioCode",
+    "Insomnia.Insomnia",
+    "Brave.Brave",
+    "Piriform.CCleaner",
+    "Docker.DockerDesktop",
+    "Figma.Figma",
+    "OpenJS.NodeJS",
+    "Yarn.Yarn"
+];
 
 async function run(options) {
     const tasks = new Listr([
@@ -199,6 +231,9 @@ async function cli(args) {
     }
     catch (err) {
         if (err.code === 'ARG_UNKNOWN_OPTION') {
+            console.log(`${chalk.red.bold('ERROR')} ${err.message}`);
+        }
+        else {
             console.log(`${chalk.red.bold('ERROR')} ${err.message}`);
         }
     }

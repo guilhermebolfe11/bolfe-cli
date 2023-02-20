@@ -12,6 +12,8 @@ export async function cli(args: Args) {
     } catch (err) {
         if ((err as ArgError).code === 'ARG_UNKNOWN_OPTION') {
             console.log(`${chalk.red.bold('ERROR')} ${(err as ArgError).message}`);
+        }else{
+            console.log(`${chalk.red.bold('ERROR')} ${(err as Error).message}`);
         }
     }
 }
